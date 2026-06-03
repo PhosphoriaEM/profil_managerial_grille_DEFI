@@ -1,0 +1,2037 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autodiagnostic Managérial – Grille DEFI | Phosphoria</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1D3058;
+    --navy-light: #2a4578;
+    --navy-xlight: #e8edf5;
+    --turquoise: #2ABFBF;
+    --turquoise-light: #e6f9f9;
+    --turquoise-dark: #1a9999;
+    --gray: #808080;
+    --gray-light: #f4f4f4;
+    --gray-mid: #d1d5db;
+    --white: #ffffff;
+    --text-dark: #1a1a2e;
+    --text-mid: #4a5568;
+    --text-light: #718096;
+    --gold: #c9a227;
+    --gold-light: #fdf3d9;
+    --success: #27ae60;
+    --success-light: #d4edda;
+    --warning: #e67e22;
+    --warning-light: #fdebd0;
+    --danger: #c0392b;
+    --danger-light: #fce4e1;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: #f0f3f8;
+    color: var(--text-dark);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--navy);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .logo-zone {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .logo-mark {
+    width: 38px; height: 38px;
+    background: var(--turquoise);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800;
+    font-size: 16px;
+    color: var(--white);
+    letter-spacing: -0.5px;
+  }
+
+  .logo-text {
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.9;
+  }
+
+  .header-title {
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 400;
+    opacity: 0.65;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── TABS ── */
+  .tabs-bar {
+    display: flex;
+    padding: 0 40px;
+    background: var(--navy);
+  }
+
+  .tab-btn {
+    padding: 14px 24px;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.55);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 3px solid transparent;
+  }
+
+  .tab-btn:hover { color: rgba(255,255,255,0.85); }
+
+  .tab-btn.active {
+    color: var(--turquoise);
+    border-bottom-color: var(--turquoise);
+  }
+
+  .tab-num {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    font-size: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+  }
+
+  .tab-btn.active .tab-num {
+    background: var(--turquoise);
+    color: var(--white);
+  }
+
+  /* ── PANELS ── */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* ── PAGE 1 : INTRODUCTION ── */
+  .intro-hero {
+    background: linear-gradient(135deg, var(--navy) 0%, #2a4578 60%, #1a6b7a 100%);
+    padding: 64px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .intro-hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(42,191,191,0.08);
+  }
+
+  .intro-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: 30%;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: rgba(42,191,191,0.05);
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(42,191,191,0.18);
+    border: 1px solid rgba(42,191,191,0.4);
+    color: var(--turquoise);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+  }
+
+  .hero-title {
+    color: var(--white);
+    font-size: 38px;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 8px;
+    max-width: 700px;
+    position: relative;
+  }
+
+  .hero-title span { color: var(--turquoise); }
+
+  .hero-sub {
+    color: rgba(255,255,255,0.65);
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    margin-bottom: 36px;
+    max-width: 600px;
+    position: relative;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 32px;
+    position: relative;
+  }
+
+  .hero-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255,255,255,0.75);
+    font-size: 13px;
+  }
+
+  .hero-meta-icon {
+    width: 34px; height: 34px;
+    background: rgba(42,191,191,0.2);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--turquoise);
+    font-size: 16px;
+  }
+
+  /* ── INTRO CONTENT ── */
+  .intro-body {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 48px 40px;
+  }
+
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+
+  .info-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 28px;
+    border: 1px solid var(--gray-mid);
+    border-top: 4px solid var(--navy);
+  }
+
+  .info-card.turquoise { border-top-color: var(--turquoise); }
+  .info-card.gold { border-top-color: var(--gold); }
+
+  .info-card-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    background: var(--navy-xlight);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+
+  .info-card.turquoise .info-card-icon { background: var(--turquoise-light); }
+  .info-card.gold .info-card-icon { background: var(--gold-light); }
+
+  .info-card h3 {
+    color: var(--navy);
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .info-card p {
+    color: var(--text-mid);
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  /* DEFI GRID */
+  .defi-section {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 36px;
+    border: 1px solid var(--gray-mid);
+    margin-bottom: 32px;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--turquoise);
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+
+  .section-desc {
+    color: var(--text-mid);
+    font-size: 13px;
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+
+  .defi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .defi-card {
+    border-radius: 10px;
+    padding: 20px 16px;
+    text-align: center;
+  }
+
+  .defi-card.d { background: #eef2ff; border: 2px solid #c7d2fe; }
+  .defi-card.e { background: var(--turquoise-light); border: 2px solid #a7f3e4; }
+  .defi-card.f { background: #fdf3d9; border: 2px solid #fde68a; }
+  .defi-card.i { background: #fce7f3; border: 2px solid #fbcfe8; }
+
+  .defi-letter {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .defi-card.d .defi-letter { color: #4f46e5; }
+  .defi-card.e .defi-letter { color: var(--turquoise-dark); }
+  .defi-card.f .defi-letter { color: #b45309; }
+  .defi-card.i .defi-letter { color: #be185d; }
+
+  .defi-word {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--text-dark);
+  }
+
+  .defi-desc {
+    font-size: 11px;
+    color: var(--text-mid);
+    line-height: 1.5;
+  }
+
+  /* Consignes */
+  .consigne-box {
+    background: var(--navy-xlight);
+    border-left: 4px solid var(--navy);
+    border-radius: 0 10px 10px 0;
+    padding: 20px 24px;
+    margin-bottom: 32px;
+  }
+
+  .consigne-box h4 {
+    color: var(--navy);
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .consigne-box ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .consigne-box li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text-mid);
+    margin-bottom: 8px;
+    line-height: 1.6;
+  }
+
+  .consigne-box li::before {
+    content: '→';
+    color: var(--turquoise);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .start-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--turquoise);
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 14px 32px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .start-btn:hover { background: var(--turquoise-dark); transform: translateY(-1px); }
+
+  /* ── PAGE 2 : QUESTIONNAIRE ── */
+  .quiz-container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 40px;
+  }
+
+  .quiz-header {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+    border: 1px solid var(--gray-mid);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .quiz-progress-info {
+    flex: 1;
+  }
+
+  .quiz-progress-info h2 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+
+  .quiz-progress-info p {
+    font-size: 12px;
+    color: var(--text-light);
+  }
+
+  .progress-bar-wrap {
+    flex: 2;
+  }
+
+  .progress-bar-track {
+    background: var(--gray-mid);
+    border-radius: 4px;
+    height: 6px;
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--turquoise);
+    border-radius: 4px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  .progress-text {
+    font-size: 11px;
+    color: var(--text-light);
+    text-align: right;
+  }
+
+  /* DIMENSION HEADERS */
+  .dimension-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    margin-top: 36px;
+  }
+
+  .dim-D { background: #eef2ff; border-left: 5px solid #4f46e5; }
+  .dim-E { background: var(--turquoise-light); border-left: 5px solid var(--turquoise); }
+  .dim-F { background: #fdf3d9; border-left: 5px solid #b45309; }
+  .dim-I { background: #fce7f3; border-left: 5px solid #be185d; }
+
+  .dim-letter-badge {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--white);
+    flex-shrink: 0;
+  }
+
+  .dim-D .dim-letter-badge { background: #4f46e5; }
+  .dim-E .dim-letter-badge { background: var(--turquoise); }
+  .dim-F .dim-letter-badge { background: #b45309; }
+  .dim-I .dim-letter-badge { background: #be185d; }
+
+  .dim-info h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 2px;
+  }
+
+  .dim-info p {
+    font-size: 12px;
+    color: var(--text-mid);
+  }
+
+  /* QUESTION CARDS */
+  .question-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 16px;
+    border: 1px solid var(--gray-mid);
+    transition: border-color 0.2s;
+  }
+
+  .question-card:hover { border-color: var(--turquoise); }
+  .question-card.answered { border-left: 4px solid var(--turquoise); }
+
+  .question-num {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--turquoise);
+    margin-bottom: 8px;
+  }
+
+  .question-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1.55;
+    margin-bottom: 18px;
+  }
+
+  /* LIKERT SCALE */
+  .likert-scale {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+  }
+
+  .likert-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .likert-option input[type="radio"] { display: none; }
+
+  .likert-btn {
+    width: 100%;
+    padding: 10px 6px;
+    border: 1.5px solid var(--gray-mid);
+    border-radius: 8px;
+    background: var(--white);
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.15s;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-mid);
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .likert-btn:hover { border-color: var(--turquoise); background: var(--turquoise-light); }
+
+  .likert-option input:checked + .likert-btn {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: var(--white);
+  }
+
+  .likert-label {
+    font-size: 10px;
+    color: var(--text-light);
+    text-align: center;
+    line-height: 1.3;
+    max-width: 70px;
+  }
+
+  .scale-legend {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+    padding: 0 2px;
+  }
+
+  .scale-legend span {
+    font-size: 10px;
+    color: var(--text-light);
+    font-style: italic;
+  }
+
+  /* SUBMIT SECTION */
+  .quiz-footer {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 28px;
+    margin-top: 32px;
+    border: 1px solid var(--gray-mid);
+    text-align: center;
+  }
+
+  .quiz-footer p {
+    font-size: 13px;
+    color: var(--text-mid);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  .submit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 16px 40px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: background 0.2s;
+  }
+
+  .submit-btn:hover { background: var(--navy-light); }
+  .submit-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* ── PAGE 3 : RÉSULTATS ── */
+  .results-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px;
+  }
+
+  .results-header {
+    background: var(--navy);
+    border-radius: 16px;
+    padding: 36px;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+    color: var(--white);
+  }
+
+  .results-header::after {
+    content: 'DEFI';
+    position: absolute;
+    right: -10px; top: -20px;
+    font-size: 120px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.04);
+    letter-spacing: -4px;
+  }
+
+  .results-header h2 {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 6px;
+    position: relative;
+  }
+
+  .results-header p {
+    font-size: 13px;
+    opacity: 0.65;
+    position: relative;
+  }
+
+  /* SCORE CARDS */
+  .scores-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .score-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 20px 16px;
+    text-align: center;
+    border: 1px solid var(--gray-mid);
+    border-top: 5px solid var(--gray-mid);
+  }
+
+  .score-card.sc-D { border-top-color: #4f46e5; }
+  .score-card.sc-E { border-top-color: var(--turquoise); }
+  .score-card.sc-F { border-top-color: #b45309; }
+  .score-card.sc-I { border-top-color: #be185d; }
+
+  .score-dim-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 6px;
+  }
+
+  .score-dim-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 12px;
+  }
+
+  .score-value {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .score-card.sc-D .score-value { color: #4f46e5; }
+  .score-card.sc-E .score-value { color: var(--turquoise); }
+  .score-card.sc-F .score-value { color: #b45309; }
+  .score-card.sc-I .score-value { color: #be185d; }
+
+  .score-max { font-size: 11px; color: var(--text-light); margin-bottom: 12px; }
+
+  .score-bar {
+    background: var(--gray-mid);
+    border-radius: 4px;
+    height: 6px;
+    overflow: hidden;
+  }
+
+  .score-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 1s ease;
+  }
+
+  .sc-D .score-bar-fill { background: #4f46e5; }
+  .sc-E .score-bar-fill { background: var(--turquoise); }
+  .sc-F .score-bar-fill { background: #b45309; }
+  .sc-I .score-bar-fill { background: #be185d; }
+
+  /* RADAR CHART */
+  .radar-section {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 36px;
+    border: 1px solid var(--gray-mid);
+    margin-bottom: 28px;
+    text-align: center;
+  }
+
+  .radar-section h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+
+  .radar-section p {
+    font-size: 12px;
+    color: var(--text-mid);
+    margin-bottom: 24px;
+  }
+
+  /* PROFIL ANALYSIS */
+  .profil-section {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 36px;
+    border: 1px solid var(--gray-mid);
+    margin-bottom: 28px;
+  }
+
+  .profil-section h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 20px;
+  }
+
+  .profil-dim-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--gray-light);
+  }
+
+  .profil-dim-row:last-child { border-bottom: none; }
+
+  .profil-badge {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--white);
+    flex-shrink: 0;
+  }
+
+  .pb-D { background: #4f46e5; }
+  .pb-E { background: var(--turquoise); }
+  .pb-F { background: #b45309; }
+  .pb-I { background: #be185d; }
+
+  .profil-dim-content { flex: 1; }
+
+  .profil-dim-content h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+
+  .profil-level-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .level-fort { background: var(--success-light); color: var(--success); }
+  .level-moyen { background: var(--warning-light); color: var(--warning); }
+  .level-faible { background: var(--danger-light); color: var(--danger); }
+
+  .profil-dim-content p {
+    font-size: 12px;
+    color: var(--text-mid);
+    line-height: 1.65;
+  }
+
+  /* GLOBAL PROFIL BOX */
+  .global-profil-box {
+    background: var(--navy-xlight);
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 24px;
+    border-left: 5px solid var(--navy);
+  }
+
+  .global-profil-box h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+
+  .global-profil-box p {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+
+  /* ── PAGE 4 : PLAN D'ACTION ── */
+  .plan-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px;
+  }
+
+  .plan-header {
+    background: linear-gradient(135deg, var(--navy) 0%, #1a6b7a 100%);
+    border-radius: 16px;
+    padding: 36px;
+    margin-bottom: 32px;
+    color: var(--white);
+  }
+
+  .plan-header h2 { font-size: 24px; font-weight: 800; margin-bottom: 6px; }
+  .plan-header p { font-size: 13px; opacity: 0.7; }
+
+  .plan-dim-section {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 32px;
+    border: 1px solid var(--gray-mid);
+    margin-bottom: 24px;
+  }
+
+  .plan-dim-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  .plan-dim-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  .plan-actions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .action-item {
+    background: var(--gray-light);
+    border-radius: 10px;
+    padding: 16px;
+  }
+
+  .action-item h5 {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .action-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .ad-D { background: #4f46e5; }
+  .ad-E { background: var(--turquoise); }
+  .ad-F { background: #b45309; }
+  .ad-I { background: #be185d; }
+
+  .action-item p {
+    font-size: 12px;
+    color: var(--text-mid);
+    line-height: 1.6;
+  }
+
+  /* SMART OBJECTIVE */
+  .smart-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  .smart-table th {
+    background: var(--navy);
+    color: var(--white);
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .smart-table th:first-child { border-radius: 8px 0 0 0; }
+  .smart-table th:last-child { border-radius: 0 8px 0 0; }
+
+  .smart-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--gray-light);
+    color: var(--text-mid);
+    line-height: 1.5;
+    vertical-align: top;
+  }
+
+  .smart-table tr:last-child td { border-bottom: none; }
+  .smart-table tr:hover td { background: var(--gray-light); }
+
+  .smart-letter {
+    font-weight: 700;
+    color: var(--navy);
+    font-size: 15px;
+  }
+
+  /* Journal perso */
+  .journal-section {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 32px;
+    border: 1px solid var(--gray-mid);
+    margin-bottom: 24px;
+  }
+
+  .journal-section h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+
+  .journal-section p {
+    font-size: 12px;
+    color: var(--text-mid);
+    margin-bottom: 16px;
+  }
+
+  .journal-textarea {
+    width: 100%;
+    min-height: 120px;
+    border: 1.5px solid var(--gray-mid);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    color: var(--text-dark);
+    resize: vertical;
+    transition: border-color 0.2s;
+    margin-bottom: 12px;
+  }
+
+  .journal-textarea:focus { border-color: var(--turquoise); outline: none; }
+
+  .save-journal-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 10px 22px;
+    border-radius: 7px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .save-journal-btn:hover { background: var(--navy-light); }
+
+  /* PRINT */
+  .print-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    color: var(--navy);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: 1.5px solid var(--navy);
+    cursor: pointer;
+    margin-top: 16px;
+    transition: all 0.2s;
+  }
+
+  .print-btn:hover { background: var(--navy); color: var(--white); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--gray);
+    padding: 20px 40px;
+    text-align: center;
+    margin-top: 60px;
+  }
+
+  footer p {
+    color: rgba(255,255,255,0.75);
+    font-size: 12px;
+    font-weight: 400;
+  }
+
+  footer strong {
+    color: var(--white);
+    font-weight: 700;
+  }
+
+  /* Alert incomplete */
+  .alert-incomplete {
+    display: none;
+    background: #fce4e1;
+    border: 1px solid #f5c6c2;
+    border-radius: 8px;
+    padding: 12px 18px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    color: var(--danger);
+    font-weight: 600;
+  }
+
+  /* Empty state */
+  .empty-state {
+    text-align: center;
+    padding: 60px 40px;
+    color: var(--text-light);
+  }
+
+  .empty-state h3 { font-size: 17px; font-weight: 600; margin-bottom: 8px; color: var(--text-mid); }
+  .empty-state p { font-size: 13px; line-height: 1.6; }
+
+  @media (max-width: 680px) {
+    .tabs-bar { overflow-x: auto; white-space: nowrap; }
+    .tab-btn { padding: 12px 14px; font-size: 10px; }
+    .intro-grid, .defi-grid, .scores-grid, .plan-actions-grid { grid-template-columns: 1fr; }
+    .intro-hero, .intro-body, .quiz-container, .results-container, .plan-container { padding: 24px 20px; }
+    .hero-title { font-size: 26px; }
+    .hero-meta { flex-direction: column; gap: 16px; }
+    .likert-scale { gap: 4px; }
+    .likert-btn { font-size: 14px; padding: 8px 4px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div class="logo-zone">
+      <div class="logo-mark">Ph</div>
+      <span class="logo-text">Phosphoria</span>
+    </div>
+    <span class="header-title">Développement managérial — Secteur Santé</span>
+  </div>
+  <div class="tabs-bar">
+    <button class="tab-btn active" onclick="showTab(0)">
+      <span class="tab-num">1</span> Introduction
+    </button>
+    <button class="tab-btn" onclick="showTab(1)">
+      <span class="tab-num">2</span> Autodiagnostic
+    </button>
+    <button class="tab-btn" onclick="showTab(2)">
+      <span class="tab-num">3</span> Analyse des résultats
+    </button>
+    <button class="tab-btn" onclick="showTab(3)">
+      <span class="tab-num">4</span> Plan d'action
+    </button>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- ONGLET 1 : INTRODUCTION -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="panel-0" class="panel active">
+  <div class="intro-hero">
+    <div class="hero-badge">
+      ✦ Grille DEFI &nbsp;•&nbsp; Autodiagnostic managérial
+    </div>
+    <h1 class="hero-title">
+      Quel manager êtes-vous<br>au quotidien&nbsp;?
+      <span> Construisez votre profil DEFI.</span>
+    </h1>
+    <p class="hero-sub">
+      Un outil de développement professionnel conçu pour les cadres de santé et médecins chefs de service, dans le cadre d'un parcours de formation continue.
+    </p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <div class="hero-meta-icon">⏱</div>
+        <div>
+          <div style="font-weight:600;font-size:13px;color:#fff;">15 à 20 minutes</div>
+          <div style="font-size:11px;opacity:0.6;">Durée estimée</div>
+        </div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-icon">📋</div>
+        <div>
+          <div style="font-weight:600;font-size:13px;color:#fff;">20 questions</div>
+          <div style="font-size:11px;opacity:0.6;">4 dimensions DEFI</div>
+        </div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-icon">🎯</div>
+        <div>
+          <div style="font-weight:600;font-size:13px;color:#fff;">Profil + Plan d'action</div>
+          <div style="font-size:11px;opacity:0.6;">Résultats personnalisés</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="intro-body">
+
+    <!-- BUT DU TEST -->
+    <div class="intro-grid" style="margin-bottom:32px;">
+      <div class="info-card">
+        <div class="info-card-icon">🎯</div>
+        <h3>But de cet autodiagnostic</h3>
+        <p>Cet outil vous invite à prendre du recul sur vos pratiques managériales actuelles. Il ne vise pas à vous évaluer, mais à vous aider à mieux vous connaître comme manager, à identifier vos points d'appui et les axes sur lesquels un développement serait bénéfique pour vous et vos équipes.</p>
+      </div>
+      <div class="info-card turquoise">
+        <div class="info-card-icon">👤</div>
+        <h3>À qui s'adresse ce test ?</h3>
+        <p>Ce questionnaire est destiné aux cadres de santé, cadres supérieurs, médecins chefs de service et tout professionnel exerçant une fonction d'encadrement dans un établissement de santé ou médico-social. Il s'inscrit dans un parcours de formation et sera complété par d'autres outils d'évaluation.</p>
+      </div>
+    </div>
+
+    <!-- PROFIL MANAGERIAL -->
+    <div class="defi-section">
+      <div class="section-label">Concept clé</div>
+      <div class="section-title">Le profil managérial : qu'est-ce que c'est ?</div>
+      <div class="section-desc">
+        Le <strong>profil managérial</strong> désigne l'ensemble des comportements, attitudes et compétences qu'un responsable déploie pour animer, orienter et soutenir son équipe. Il n'existe pas de profil idéal universel : chaque contexte institutionnel, chaque équipe, chaque situation requiert des ajustements. L'objectif d'un diagnostic est donc de cartographier votre style dominant et d'identifier les registres que vous mobilisez moins spontanément, afin d'enrichir votre répertoire managérial.
+        <br><br>
+        Le développement managérial dans le secteur santé est d'autant plus crucial que les cadres et médecins chefs font face à des exigences spécifiques : gestion de professionnels hautement qualifiés et autonomes, pression institutionnelle, contraintes réglementaires, impératifs de qualité et de sécurité des soins, et bien sûr, la dimension humaine centrale au cœur de l'activité soignante.
+      </div>
+
+      <!-- DEFI -->
+      <div class="section-label" style="margin-top:0;">La grille DEFI</div>
+      <p style="font-size:13px;color:var(--text-mid);margin-bottom:20px;line-height:1.7;">
+        La grille <strong>DEFI</strong> structure l'analyse du profil managérial autour de quatre grandes dimensions complémentaires, particulièrement pertinentes pour les contextes hospitaliers et médico-sociaux :
+      </p>
+      <div class="defi-grid">
+        <div class="defi-card d">
+          <div class="defi-letter">D</div>
+          <div class="defi-word">Délégation</div>
+          <div class="defi-desc">Capacité à confier des responsabilités, faire confiance et développer l'autonomie des collaborateurs</div>
+        </div>
+        <div class="defi-card e">
+          <div class="defi-letter">E</div>
+          <div class="defi-word">Équipe</div>
+          <div class="defi-desc">Animation collective, cohésion, gestion des dynamiques de groupe et intelligence collective</div>
+        </div>
+        <div class="defi-card f">
+          <div class="defi-letter">F</div>
+          <div class="defi-word">Fédération</div>
+          <div class="defi-desc">Partage du sens, mobilisation autour d'une vision commune, engagement et motivation durable</div>
+        </div>
+        <div class="defi-card i">
+          <div class="defi-letter">I</div>
+          <div class="defi-word">Individu</div>
+          <div class="defi-desc">Accompagnement singulier, reconnaissance, développement des personnes et gestion des talents</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONSIGNES -->
+    <div class="consigne-box">
+      <h4>📌 Consignes de passation</h4>
+      <ul>
+        <li>Répondez en vous référant à vos pratiques managériales <strong>réelles et habituelles</strong>, pas à ce que vous pensez devoir faire idéalement.</li>
+        <li>Il n'y a <strong>pas de bonnes ou mauvaises réponses</strong> : chaque réponse reflète votre style, votre contexte, votre culture d'équipe.</li>
+        <li>Utilisez l'<strong>échelle de 1 à 5</strong> pour chaque affirmation : 1 = rarement ou jamais, 5 = très souvent ou toujours.</li>
+        <li>Ce test est <strong>complémentaire du questionnaire de Hersey & Blanchard</strong> que vous compléterez par ailleurs ; les deux outils permettront une analyse croisée approfondie.</li>
+        <li>Prenez le temps de <strong>vous poser dans un moment calme</strong>, sans interruption, pour une réflexion authentique.</li>
+      </ul>
+    </div>
+
+    <div style="text-align:center;">
+      <button class="start-btn" onclick="showTab(1)">
+        Commencer l'autodiagnostic →
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- ONGLET 2 : AUTODIAGNOSTIC -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="panel-1" class="panel">
+  <div class="quiz-container">
+
+    <div class="quiz-header">
+      <div class="quiz-progress-info">
+        <h2>Autodiagnostic DEFI</h2>
+        <p>Répondez à chaque affirmation en toute sincérité</p>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text" id="progressText">0 / 20 questions répondues</div>
+      </div>
+    </div>
+
+    <!-- ===== DIMENSION D ===== -->
+    <div class="dimension-header dim-D">
+      <div class="dim-letter-badge">D</div>
+      <div class="dim-info">
+        <h3>Délégation</h3>
+        <p>Votre capacité à responsabiliser et développer l'autonomie de vos collaborateurs</p>
+      </div>
+    </div>
+
+    <div class="question-card" id="card-1">
+      <div class="question-num">Question 1 / 20 — Délégation</div>
+      <div class="question-text">Lorsque je confie une mission à un collaborateur, je lui précise les objectifs attendus sans lui imposer la méthode à suivre.</div>
+      <div class="likert-scale">
+        <div class="likert-option"><input type="radio" name="q1" value="1" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q1','1')">1</label><span class="likert-label">Rarement</span></div>
+        <div class="likert-option"><input type="radio" name="q1" value="2" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q1','2')">2</label><span class="likert-label">Peu souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q1" value="3" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q1','3')">3</label><span class="likert-label">Parfois</span></div>
+        <div class="likert-option"><input type="radio" name="q1" value="4" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q1','4')">4</label><span class="likert-label">Souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q1" value="5" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q1','5')">5</label><span class="likert-label">Très souvent</span></div>
+      </div>
+      <div class="scale-legend"><span>1 = Rarement / Jamais</span><span>5 = Très souvent / Toujours</span></div>
+    </div>
+
+    <div class="question-card" id="card-2">
+      <div class="question-num">Question 2 / 20 — Délégation</div>
+      <div class="question-text">Je vérifie régulièrement l'avancement des missions déléguées sans pour autant reprendre les tâches à la place de mes collaborateurs.</div>
+      <div class="likert-scale">
+        <div class="likert-option"><input type="radio" name="q2" value="1" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q2','1')">1</label><span class="likert-label">Rarement</span></div>
+        <div class="likert-option"><input type="radio" name="q2" value="2" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q2','2')">2</label><span class="likert-label">Peu souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q2" value="3" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q2','3')">3</label><span class="likert-label">Parfois</span></div>
+        <div class="likert-option"><input type="radio" name="q2" value="4" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q2','4')">4</label><span class="likert-label">Souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q2" value="5" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q2','5')">5</label><span class="likert-label">Très souvent</span></div>
+      </div>
+      <div class="scale-legend"><span>1 = Rarement / Jamais</span><span>5 = Très souvent / Toujours</span></div>
+    </div>
+
+    <div class="question-card" id="card-3">
+      <div class="question-num">Question 3 / 20 — Délégation</div>
+      <div class="question-text">J'adapte le degré de contrôle que j'exerce en fonction du niveau de compétence et d'expérience du collaborateur concerné.</div>
+      <div class="likert-scale">
+        <div class="likert-option"><input type="radio" name="q3" value="1" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q3','1')">1</label><span class="likert-label">Rarement</span></div>
+        <div class="likert-option"><input type="radio" name="q3" value="2" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q3','2')">2</label><span class="likert-label">Peu souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q3" value="3" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q3','3')">3</label><span class="likert-label">Parfois</span></div>
+        <div class="likert-option"><input type="radio" name="q3" value="4" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q3','4')">4</label><span class="likert-label">Souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q3" value="5" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q3','5')">5</label><span class="likert-label">Très souvent</span></div>
+      </div>
+      <div class="scale-legend"><span>1 = Rarement / Jamais</span><span>5 = Très souvent / Toujours</span></div>
+    </div>
+
+    <div class="question-card" id="card-4">
+      <div class="question-num">Question 4 / 20 — Délégation</div>
+      <div class="question-text">Quand une erreur est commise dans une mission déléguée, je l'aborde comme une occasion d'apprentissage plutôt que comme une faute à sanctionner.</div>
+      <div class="likert-scale">
+        <div class="likert-option"><input type="radio" name="q4" value="1" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q4','1')">1</label><span class="likert-label">Rarement</span></div>
+        <div class="likert-option"><input type="radio" name="q4" value="2" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q4','2')">2</label><span class="likert-label">Peu souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q4" value="3" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q4','3')">3</label><span class="likert-label">Parfois</span></div>
+        <div class="likert-option"><input type="radio" name="q4" value="4" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q4','4')">4</label><span class="likert-label">Souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q4" value="5" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q4','5')">5</label><span class="likert-label">Très souvent</span></div>
+      </div>
+      <div class="scale-legend"><span>1 = Rarement / Jamais</span><span>5 = Très souvent / Toujours</span></div>
+    </div>
+
+    <div class="question-card" id="card-5">
+      <div class="question-num">Question 5 / 20 — Délégation</div>
+      <div class="question-text">Je m'efforce de confier à mes collaborateurs des missions qui développent leurs compétences et leur permettent de progresser professionnellement.</div>
+      <div class="likert-scale">
+        <div class="likert-option"><input type="radio" name="q5" value="1" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q5','1')">1</label><span class="likert-label">Rarement</span></div>
+        <div class="likert-option"><input type="radio" name="q5" value="2" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q5','2')">2</label><span class="likert-label">Peu souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q5" value="3" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q5','3')">3</label><span class="likert-label">Parfois</span></div>
+        <div class="likert-option"><input type="radio" name="q5" value="4" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q5','4')">4</label><span class="likert-label">Souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q5" value="5" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q5','5')">5</label><span class="likert-label">Très souvent</span></div>
+      </div>
+      <div class="scale-legend"><span>1 = Rarement / Jamais</span><span>5 = Très souvent / Toujours</span></div>
+    </div>
+
+    <!-- ===== DIMENSION E ===== -->
+    <div class="dimension-header dim-E" style="margin-top:40px;">
+      <div class="dim-letter-badge">E</div>
+      <div class="dim-info">
+        <h3>Équipe</h3>
+        <p>Votre façon d'animer le collectif, de favoriser la coopération et la cohésion</p>
+      </div>
+    </div>
+
+    <div class="question-card" id="card-6">
+      <div class="question-num">Question 6 / 20 — Équipe</div>
+      <div class="question-text">Je crée des espaces de travail collectif (réunions, ateliers, groupes de travail) qui favorisent réellement la contribution de chaque membre de l'équipe.</div>
+      <div class="likert-scale">
+        <div class="likert-option"><input type="radio" name="q6" value="1" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q6','1')">1</label><span class="likert-label">Rarement</span></div>
+        <div class="likert-option"><input type="radio" name="q6" value="2" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q6','2')">2</label><span class="likert-label">Peu souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q6" value="3" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q6','3')">3</label><span class="likert-label">Parfois</span></div>
+        <div class="likert-option"><input type="radio" name="q6" value="4" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q6','4')">4</label><span class="likert-label">Souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q6" value="5" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q6','5')">5</label><span class="likert-label">Très souvent</span></div>
+      </div>
+      <div class="scale-legend"><span>1 = Rarement / Jamais</span><span>5 = Très souvent / Toujours</span></div>
+    </div>
+
+    <div class="question-card" id="card-7">
+      <div class="question-num">Question 7 / 20 — Équipe</div>
+      <div class="question-text">Lorsque des tensions apparaissent au sein de l'équipe, j'interviens pour faciliter le dialogue et rétablir un fonctionnement serein.</div>
+      <div class="likert-scale">
+        <div class="likert-option"><input type="radio" name="q7" value="1" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q7','1')">1</label><span class="likert-label">Rarement</span></div>
+        <div class="likert-option"><input type="radio" name="q7" value="2" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q7','2')">2</label><span class="likert-label">Peu souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q7" value="3" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q7','3')">3</label><span class="likert-label">Parfois</span></div>
+        <div class="likert-option"><input type="radio" name="q7" value="4" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q7','4')">4</label><span class="likert-label">Souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q7" value="5" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q7','5')">5</label><span class="likert-label">Très souvent</span></div>
+      </div>
+      <div class="scale-legend"><span>1 = Rarement / Jamais</span><span>5 = Très souvent / Toujours</span></div>
+    </div>
+
+    <div class="question-card" id="card-8">
+      <div class="question-num">Question 8 / 20 — Équipe</div>
+      <div class="question-text">Je valorise publiquement les réussites collectives de mon équipe auprès des instances et des partenaires internes.</div>
+      <div class="likert-scale">
+        <div class="likert-option"><input type="radio" name="q8" value="1" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q8','1')">1</label><span class="likert-label">Rarement</span></div>
+        <div class="likert-option"><input type="radio" name="q8" value="2" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q8','2')">2</label><span class="likert-label">Peu souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q8" value="3" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q8','3')">3</label><span class="likert-label">Parfois</span></div>
+        <div class="likert-option"><input type="radio" name="q8" value="4" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q8','4')">4</label><span class="likert-label">Souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q8" value="5" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q8','5')">5</label><span class="likert-label">Très souvent</span></div>
+      </div>
+      <div class="scale-legend"><span>1 = Rarement / Jamais</span><span>5 = Très souvent / Toujours</span></div>
+    </div>
+
+    <div class="question-card" id="card-9">
+      <div class="question-num">Question 9 / 20 — Équipe</div>
+      <div class="question-text">Je veille à ce que les règles de fonctionnement et les rôles de chacun soient clairs et partagés par l'ensemble de l'équipe.</div>
+      <div class="likert-scale">
+        <div class="likert-option"><input type="radio" name="q9" value="1" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q9','1')">1</label><span class="likert-label">Rarement</span></div>
+        <div class="likert-option"><input type="radio" name="q9" value="2" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q9','2')">2</label><span class="likert-label">Peu souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q9" value="3" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q9','3')">3</label><span class="likert-label">Parfois</span></div>
+        <div class="likert-option"><input type="radio" name="q9" value="4" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q9','4')">4</label><span class="likert-label">Souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q9" value="5" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q9','5')">5</label><span class="likert-label">Très souvent</span></div>
+      </div>
+      <div class="scale-legend"><span>1 = Rarement / Jamais</span><span>5 = Très souvent / Toujours</span></div>
+    </div>
+
+    <div class="question-card" id="card-10">
+      <div class="question-num">Question 10 / 20 — Équipe</div>
+      <div class="question-text">Je sollicite l'expertise et les idées de mes collaborateurs avant de prendre des décisions qui les concernent.</div>
+      <div class="likert-scale">
+        <div class="likert-option"><input type="radio" name="q10" value="1" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q10','1')">1</label><span class="likert-label">Rarement</span></div>
+        <div class="likert-option"><input type="radio" name="q10" value="2" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q10','2')">2</label><span class="likert-label">Peu souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q10" value="3" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q10','3')">3</label><span class="likert-label">Parfois</span></div>
+        <div class="likert-option"><input type="radio" name="q10" value="4" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q10','4')">4</label><span class="likert-label">Souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q10" value="5" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q10','5')">5</label><span class="likert-label">Très souvent</span></div>
+      </div>
+      <div class="scale-legend"><span>1 = Rarement / Jamais</span><span>5 = Très souvent / Toujours</span></div>
+    </div>
+
+    <!-- ===== DIMENSION F ===== -->
+    <div class="dimension-header dim-F" style="margin-top:40px;">
+      <div class="dim-letter-badge">F</div>
+      <div class="dim-info">
+        <h3>Fédération</h3>
+        <p>Votre capacité à donner du sens, à mobiliser et à engager durablement vos équipes</p>
+      </div>
+    </div>
+
+    <div class="question-card" id="card-11">
+      <div class="question-num">Question 11 / 20 — Fédération</div>
+      <div class="question-text">Je traduis régulièrement les orientations institutionnelles en objectifs concrets et signifiants pour mon équipe.</div>
+      <div class="likert-scale">
+        <div class="likert-option"><input type="radio" name="q11" value="1" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q11','1')">1</label><span class="likert-label">Rarement</span></div>
+        <div class="likert-option"><input type="radio" name="q11" value="2" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q11','2')">2</label><span class="likert-label">Peu souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q11" value="3" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q11','3')">3</label><span class="likert-label">Parfois</span></div>
+        <div class="likert-option"><input type="radio" name="q11" value="4" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q11','4')">4</label><span class="likert-label">Souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q11" value="5" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q11','5')">5</label><span class="likert-label">Très souvent</span></div>
+      </div>
+      <div class="scale-legend"><span>1 = Rarement / Jamais</span><span>5 = Très souvent / Toujours</span></div>
+    </div>
+
+    <div class="question-card" id="card-12">
+      <div class="question-num">Question 12 / 20 — Fédération</div>
+      <div class="question-text">Je sais expliquer le « pourquoi » d'une décision ou d'un changement, même lorsque celui-ci est imposé par l'institution.</div>
+      <div class="likert-scale">
+        <div class="likert-option"><input type="radio" name="q12" value="1" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q12','1')">1</label><span class="likert-label">Rarement</span></div>
+        <div class="likert-option"><input type="radio" name="q12" value="2" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q12','2')">2</label><span class="likert-label">Peu souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q12" value="3" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q12','3')">3</label><span class="likert-label">Parfois</span></div>
+        <div class="likert-option"><input type="radio" name="q12" value="4" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q12','4')">4</label><span class="likert-label">Souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q12" value="5" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q12','5')">5</label><span class="likert-label">Très souvent</span></div>
+      </div>
+      <div class="scale-legend"><span>1 = Rarement / Jamais</span><span>5 = Très souvent / Toujours</span></div>
+    </div>
+
+    <div class="question-card" id="card-13">
+      <div class="question-num">Question 13 / 20 — Fédération</div>
+      <div class="question-text">Je partage avec mon équipe une vision claire de ce que nous souhaitons construire ensemble à moyen terme.</div>
+      <div class="likert-scale">
+        <div class="likert-option"><input type="radio" name="q13" value="1" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q13','1')">1</label><span class="likert-label">Rarement</span></div>
+        <div class="likert-option"><input type="radio" name="q13" value="2" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q13','2')">2</label><span class="likert-label">Peu souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q13" value="3" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q13','3')">3</label><span class="likert-label">Parfois</span></div>
+        <div class="likert-option"><input type="radio" name="q13" value="4" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q13','4')">4</label><span class="likert-label">Souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q13" value="5" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q13','5')">5</label><span class="likert-label">Très souvent</span></div>
+      </div>
+      <div class="scale-legend"><span>1 = Rarement / Jamais</span><span>5 = Très souvent / Toujours</span></div>
+    </div>
+
+    <div class="question-card" id="card-14">
+      <div class="question-num">Question 14 / 20 — Fédération</div>
+      <div class="question-text">En période de changement ou d'incertitude, je maintiens un discours cohérent et rassurant qui aide l'équipe à garder le cap.</div>
+      <div class="likert-scale">
+        <div class="likert-option"><input type="radio" name="q14" value="1" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q14','1')">1</label><span class="likert-label">Rarement</span></div>
+        <div class="likert-option"><input type="radio" name="q14" value="2" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q14','2')">2</label><span class="likert-label">Peu souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q14" value="3" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q14','3')">3</label><span class="likert-label">Parfois</span></div>
+        <div class="likert-option"><input type="radio" name="q14" value="4" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q14','4')">4</label><span class="likert-label">Souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q14" value="5" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q14','5')">5</label><span class="likert-label">Très souvent</span></div>
+      </div>
+      <div class="scale-legend"><span>1 = Rarement / Jamais</span><span>5 = Très souvent / Toujours</span></div>
+    </div>
+
+    <div class="question-card" id="card-15">
+      <div class="question-num">Question 15 / 20 — Fédération</div>
+      <div class="question-text">Je fais des liens explicites entre le travail de mon équipe et la qualité des soins dispensés aux patients / résidents.</div>
+      <div class="likert-scale">
+        <div class="likert-option"><input type="radio" name="q15" value="1" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q15','1')">1</label><span class="likert-label">Rarement</span></div>
+        <div class="likert-option"><input type="radio" name="q15" value="2" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q15','2')">2</label><span class="likert-label">Peu souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q15" value="3" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q15','3')">3</label><span class="likert-label">Parfois</span></div>
+        <div class="likert-option"><input type="radio" name="q15" value="4" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q15','4')">4</label><span class="likert-label">Souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q15" value="5" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q15','5')">5</label><span class="likert-label">Très souvent</span></div>
+      </div>
+      <div class="scale-legend"><span>1 = Rarement / Jamais</span><span>5 = Très souvent / Toujours</span></div>
+    </div>
+
+    <!-- ===== DIMENSION I ===== -->
+    <div class="dimension-header dim-I" style="margin-top:40px;">
+      <div class="dim-letter-badge">I</div>
+      <div class="dim-info">
+        <h3>Individu</h3>
+        <p>Votre attention à chaque collaborateur dans sa singularité, son développement et son bien-être</p>
+      </div>
+    </div>
+
+    <div class="question-card" id="card-16">
+      <div class="question-num">Question 16 / 20 — Individu</div>
+      <div class="question-text">J'organise régulièrement des entretiens individuels avec mes collaborateurs pour faire le point sur leur activité, leurs besoins et leurs aspirations professionnelles.</div>
+      <div class="likert-scale">
+        <div class="likert-option"><input type="radio" name="q16" value="1" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q16','1')">1</label><span class="likert-label">Rarement</span></div>
+        <div class="likert-option"><input type="radio" name="q16" value="2" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q16','2')">2</label><span class="likert-label">Peu souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q16" value="3" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q16','3')">3</label><span class="likert-label">Parfois</span></div>
+        <div class="likert-option"><input type="radio" name="q16" value="4" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q16','4')">4</label><span class="likert-label">Souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q16" value="5" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q16','5')">5</label><span class="likert-label">Très souvent</span></div>
+      </div>
+      <div class="scale-legend"><span>1 = Rarement / Jamais</span><span>5 = Très souvent / Toujours</span></div>
+    </div>
+
+    <div class="question-card" id="card-17">
+      <div class="question-num">Question 17 / 20 — Individu</div>
+      <div class="question-text">Je reconnais et exprime de façon explicite la contribution spécifique de chaque collaborateur, au-delà de la performance collective.</div>
+      <div class="likert-scale">
+        <div class="likert-option"><input type="radio" name="q17" value="1" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q17','1')">1</label><span class="likert-label">Rarement</span></div>
+        <div class="likert-option"><input type="radio" name="q17" value="2" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q17','2')">2</label><span class="likert-label">Peu souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q17" value="3" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q17','3')">3</label><span class="likert-label">Parfois</span></div>
+        <div class="likert-option"><input type="radio" name="q17" value="4" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q17','4')">4</label><span class="likert-label">Souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q17" value="5" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q17','5')">5</label><span class="likert-label">Très souvent</span></div>
+      </div>
+      <div class="scale-legend"><span>1 = Rarement / Jamais</span><span>5 = Très souvent / Toujours</span></div>
+    </div>
+
+    <div class="question-card" id="card-18">
+      <div class="question-num">Question 18 / 20 — Individu</div>
+      <div class="question-text">Je suis attentif(ve) aux signaux de mal-être ou d'épuisement professionnel chez mes collaborateurs et je prends les mesures appropriées.</div>
+      <div class="likert-scale">
+        <div class="likert-option"><input type="radio" name="q18" value="1" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q18','1')">1</label><span class="likert-label">Rarement</span></div>
+        <div class="likert-option"><input type="radio" name="q18" value="2" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q18','2')">2</label><span class="likert-label">Peu souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q18" value="3" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q18','3')">3</label><span class="likert-label">Parfois</span></div>
+        <div class="likert-option"><input type="radio" name="q18" value="4" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q18','4')">4</label><span class="likert-label">Souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q18" value="5" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q18','5')">5</label><span class="likert-label">Très souvent</span></div>
+      </div>
+      <div class="scale-legend"><span>1 = Rarement / Jamais</span><span>5 = Très souvent / Toujours</span></div>
+    </div>
+
+    <div class="question-card" id="card-19">
+      <div class="question-num">Question 19 / 20 — Individu</div>
+      <div class="question-text">J'adapte mon style de communication et d'accompagnement à chaque collaborateur selon sa personnalité et son niveau d'autonomie.</div>
+      <div class="likert-scale">
+        <div class="likert-option"><input type="radio" name="q19" value="1" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q19','1')">1</label><span class="likert-label">Rarement</span></div>
+        <div class="likert-option"><input type="radio" name="q19" value="2" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q19','2')">2</label><span class="likert-label">Peu souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q19" value="3" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q19','3')">3</label><span class="likert-label">Parfois</span></div>
+        <div class="likert-option"><input type="radio" name="q19" value="4" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q19','4')">4</label><span class="likert-label">Souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q19" value="5" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q19','5')">5</label><span class="likert-label">Très souvent</span></div>
+      </div>
+      <div class="scale-legend"><span>1 = Rarement / Jamais</span><span>5 = Très souvent / Toujours</span></div>
+    </div>
+
+    <div class="question-card" id="card-20">
+      <div class="question-num">Question 20 / 20 — Individu</div>
+      <div class="question-text">Je construis avec chaque collaborateur un projet de développement professionnel individuel, en lien avec les besoins du service et ses propres aspirations.</div>
+      <div class="likert-scale">
+        <div class="likert-option"><input type="radio" name="q20" value="1" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q20','1')">1</label><span class="likert-label">Rarement</span></div>
+        <div class="likert-option"><input type="radio" name="q20" value="2" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q20','2')">2</label><span class="likert-label">Peu souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q20" value="3" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q20','3')">3</label><span class="likert-label">Parfois</span></div>
+        <div class="likert-option"><input type="radio" name="q20" value="4" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q20','4')">4</label><span class="likert-label">Souvent</span></div>
+        <div class="likert-option"><input type="radio" name="q20" value="5" onchange="updateProgress()"><label class="likert-btn" onclick="selectRadio('q20','5')">5</label><span class="likert-label">Très souvent</span></div>
+      </div>
+      <div class="scale-legend"><span>1 = Rarement / Jamais</span><span>5 = Très souvent / Toujours</span></div>
+    </div>
+
+    <div class="quiz-footer">
+      <div class="alert-incomplete" id="alertIncomplete">
+        ⚠️ Merci de répondre à toutes les questions avant de valider.
+      </div>
+      <p>Une fois toutes les questions répondues, cliquez sur le bouton ci-dessous pour obtenir votre profil DEFI personnalisé et votre plan d'action.</p>
+      <button class="submit-btn" id="submitBtn" onclick="calculateResults()">
+        Calculer mon profil DEFI →
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- ONGLET 3 : RÉSULTATS -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="panel-2" class="panel">
+  <div class="results-container">
+
+    <div id="emptyResults" class="empty-state">
+      <div style="font-size:48px;margin-bottom:16px;">📊</div>
+      <h3>Aucun résultat à afficher</h3>
+      <p>Complétez d'abord l'autodiagnostic dans l'onglet 2<br>pour obtenir votre profil DEFI personnalisé.</p>
+      <button class="start-btn" style="margin-top:24px;" onclick="showTab(1)">Aller à l'autodiagnostic →</button>
+    </div>
+
+    <div id="resultsContent" style="display:none;">
+      <div class="results-header">
+        <h2>Votre profil managérial DEFI</h2>
+        <p>Résultats générés à partir de vos réponses — scores sur 25 points par dimension</p>
+      </div>
+
+      <div class="scores-grid">
+        <div class="score-card sc-D">
+          <div class="score-dim-label">Dimension D</div>
+          <div class="score-dim-name">Délégation</div>
+          <div class="score-value" id="scoreD">—</div>
+          <div class="score-max">/ 25</div>
+          <div class="score-bar"><div class="score-bar-fill" id="barD" style="width:0%"></div></div>
+        </div>
+        <div class="score-card sc-E">
+          <div class="score-dim-label">Dimension E</div>
+          <div class="score-dim-name">Équipe</div>
+          <div class="score-value" id="scoreE">—</div>
+          <div class="score-max">/ 25</div>
+          <div class="score-bar"><div class="score-bar-fill" id="barE" style="width:0%"></div></div>
+        </div>
+        <div class="score-card sc-F">
+          <div class="score-dim-label">Dimension F</div>
+          <div class="score-dim-name">Fédération</div>
+          <div class="score-value" id="scoreF">—</div>
+          <div class="score-max">/ 25</div>
+          <div class="score-bar"><div class="score-bar-fill" id="barF" style="width:0%"></div></div>
+        </div>
+        <div class="score-card sc-I">
+          <div class="score-dim-label">Dimension I</div>
+          <div class="score-dim-name">Individu</div>
+          <div class="score-value" id="scoreI">—</div>
+          <div class="score-max">/ 25</div>
+          <div class="score-bar"><div class="score-bar-fill" id="barI" style="width:0%"></div></div>
+        </div>
+      </div>
+
+      <!-- RADAR -->
+      <div class="radar-section">
+        <h3>Représentation graphique du profil</h3>
+        <p>Vue radar des quatre dimensions — plus la surface est étendue, plus le profil est équilibré et développé</p>
+        <canvas id="radarChart" width="380" height="320" style="max-width:380px;"></canvas>
+      </div>
+
+      <!-- ANALYSE -->
+      <div class="profil-section">
+        <h3>Analyse par dimension</h3>
+        <div id="analysisDims"></div>
+        <div class="global-profil-box" id="globalProfil"></div>
+      </div>
+
+      <div style="text-align:center;">
+        <button class="start-btn" onclick="showTab(3)">Voir mon plan d'action →</button>
+        <button class="print-btn" onclick="window.print()" style="margin-left:12px;">🖨 Imprimer les résultats</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- ONGLET 4 : PLAN D'ACTION -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="panel-3" class="panel">
+  <div class="plan-container">
+
+    <div id="emptyPlan" class="empty-state">
+      <div style="font-size:48px;margin-bottom:16px;">🗺️</div>
+      <h3>Plan d'action non disponible</h3>
+      <p>Complétez l'autodiagnostic pour générer<br>un plan d'action personnalisé selon votre profil DEFI.</p>
+      <button class="start-btn" style="margin-top:24px;" onclick="showTab(1)">Aller à l'autodiagnostic →</button>
+    </div>
+
+    <div id="planContent" style="display:none;">
+
+      <div class="plan-header">
+        <h2>Plan de développement managérial</h2>
+        <p>Recommandations personnalisées selon votre profil DEFI — à compléter et ajuster selon votre contexte</p>
+      </div>
+
+      <!-- Contenu généré -->
+      <div id="planDims"></div>
+
+      <!-- SMART -->
+      <div class="plan-dim-section">
+        <div class="plan-dim-header">
+          <div class="profil-badge" style="background:var(--navy);">🎯</div>
+          <div class="plan-dim-title">Formaliser un objectif SMART de développement managérial</div>
+        </div>
+        <p style="font-size:13px;color:var(--text-mid);margin-bottom:20px;line-height:1.7;">Un objectif SMART est la pierre angulaire d'un plan d'action efficace. Utilisez ce cadre pour formuler votre engagement principal de développement managérial.</p>
+        <table class="smart-table">
+          <thead>
+            <tr>
+              <th>Critère</th>
+              <th>Signification</th>
+              <th>Application à votre développement managérial</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="smart-letter">S</span></td><td>Spécifique</td><td>Définissez précisément la compétence managériale que vous souhaitez développer (ex. : améliorer ma pratique de délégation vers les agents les plus expérimentés)</td></tr>
+            <tr><td><span class="smart-letter">M</span></td><td>Mesurable</td><td>Identifiez un indicateur concret (ex. : 2 délégations formalisées par mois, taux de satisfaction de l'équipe, nombre d'entretiens individuels réalisés)</td></tr>
+            <tr><td><span class="smart-letter">A</span></td><td>Atteignable</td><td>Assurez-vous que cet objectif est réaliste compte tenu de vos contraintes de temps, de votre charge de travail et du contexte institutionnel</td></tr>
+            <tr><td><span class="smart-letter">R</span></td><td>Réaliste</td><td>Vérifiez que cet objectif est en cohérence avec les besoins de votre équipe et les orientations du service</td></tr>
+            <tr><td><span class="smart-letter">T</span></td><td>Temporel</td><td>Fixez une échéance claire (ex. : dans les 3 prochains mois) et des jalons intermédiaires d'évaluation</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Journal -->
+      <div class="journal-section">
+        <h3>📓 Mon journal de bord managérial</h3>
+        <p>Cet espace vous permet de noter vos premières intentions, observations et engagements à l'issue de cet autodiagnostic. Ces notes vous appartiennent et constituent le point de départ de votre réflexion.</p>
+        <textarea class="journal-textarea" id="journalText" placeholder="Notez ici vos réflexions, vos priorités de développement, les situations managériales que vous souhaitez faire évoluer, vos engagements concrets pour les prochaines semaines..."></textarea>
+        <button class="save-journal-btn" onclick="saveJournal()">💾 Enregistrer mes notes</button>
+        <span id="saveMsg" style="font-size:12px;color:var(--success);margin-left:12px;display:none;">✔ Enregistré</span>
+      </div>
+
+      <!-- Complémentarité HB -->
+      <div class="plan-dim-section">
+        <div class="plan-dim-header">
+          <div class="profil-badge" style="background:#4f46e5;">🔗</div>
+          <div class="plan-dim-title">Mise en perspective avec le questionnaire de Hersey &amp; Blanchard</div>
+        </div>
+        <p style="font-size:13px;color:var(--text-mid);line-height:1.7;margin-bottom:16px;">
+          Le questionnaire de <strong>Hersey &amp; Blanchard</strong> (Leadership situationnel) explore votre style dominant selon deux axes : l'orientation tâche (directivité) et l'orientation relation (soutien). Il identifie votre profil parmi quatre styles : <em>Directif, Persuasif, Participatif, Délégatif</em>.
+        </p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div class="action-item">
+            <h5><span class="action-dot" style="background:#4f46e5;"></span>Points de convergence à explorer</h5>
+            <p>Comparez votre score <strong>D (Délégation)</strong> avec votre style Hersey&Blanchard : un profil Délégatif fort et un score D élevé confirme une cohérence. Un écart peut révéler un angle mort intéressant.</p>
+          </div>
+          <div class="action-item">
+            <h5><span class="action-dot" style="background:var(--turquoise);"></span>Points de complémentarité</h5>
+            <p>Là où DEFI explore le <em>collectif</em> (dimensions E et F), Hersey &amp; Blanchard centre sur <em>l'individu et la situation</em>. La lecture croisée des deux outils offre une vision 360° de votre style managérial.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center;padding:20px 0;">
+        <button class="print-btn" onclick="window.print()">🖨 Imprimer le plan d'action complet</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>Outil conçu par <strong>Céline Cornet</strong>, ingénieur pédagogique — <strong>Phosphoria</strong> &nbsp;|&nbsp; Développement managérial dans le secteur Santé &nbsp;|&nbsp; Usage formation exclusivement</p>
+</footer>
+
+<script>
+  var scores = { D: 0, E: 0, F: 0, I: 0 };
+
+  function showTab(n) {
+    document.querySelectorAll('.panel').forEach(function(p,i){ p.classList.toggle('active', i===n); });
+    document.querySelectorAll('.tab-btn').forEach(function(b,i){ b.classList.toggle('active', i===n); });
+    window.scrollTo(0,0);
+  }
+
+  function selectRadio(name, val) {
+    var radios = document.querySelectorAll('input[name="' + name + '"]');
+    radios.forEach(function(r){ r.checked = r.value === val; });
+    var qnum = parseInt(name.replace('q',''));
+    var card = document.getElementById('card-' + qnum);
+    if (card) card.classList.add('answered');
+    updateProgress();
+  }
+
+  function updateProgress() {
+    var answered = 0;
+    for (var i = 1; i <= 20; i++) {
+      var radios = document.querySelectorAll('input[name="q' + i + '"]:checked');
+      if (radios.length > 0) answered++;
+    }
+    var pct = Math.round((answered / 20) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressText').textContent = answered + ' / 20 questions répondues';
+  }
+
+  function getVal(name) {
+    var r = document.querySelector('input[name="' + name + '"]:checked');
+    return r ? parseInt(r.value) : null;
+  }
+
+  function calculateResults() {
+    var vals = {};
+    var allAnswered = true;
+    for (var i = 1; i <= 20; i++) {
+      var v = getVal('q' + i);
+      if (v === null) { allAnswered = false; break; }
+      vals['q' + i] = v;
+    }
+
+    if (!allAnswered) {
+      document.getElementById('alertIncomplete').style.display = 'block';
+      return;
+    }
+    document.getElementById('alertIncomplete').style.display = 'none';
+
+    scores.D = vals.q1 + vals.q2 + vals.q3 + vals.q4 + vals.q5;
+    scores.E = vals.q6 + vals.q7 + vals.q8 + vals.q9 + vals.q10;
+    scores.F = vals.q11 + vals.q12 + vals.q13 + vals.q14 + vals.q15;
+    scores.I = vals.q16 + vals.q17 + vals.q18 + vals.q19 + vals.q20;
+
+    renderResults();
+    renderPlan();
+    showTab(2);
+  }
+
+  function getLevel(score) {
+    if (score >= 20) return { label: 'Fort', cls: 'level-fort', txt: 'Vous mobilisez fortement cette dimension dans votre pratique quotidienne. C\'est un vrai point d\'appui pour votre équipe.' };
+    if (score >= 13) return { label: 'Modéré', cls: 'level-moyen', txt: 'Cette dimension est présente mais mériterait d\'être renforcée et davantage intégrée à vos réflexes managériaux.' };
+    return { label: 'À développer', cls: 'level-faible', txt: 'Cette dimension constitue un axe prioritaire de développement. Un accompagnement ciblé vous aidera à progresser.' };
+  }
+
+  var dimDetails = {
+    D: { name: 'Délégation', sub: 'Responsabilisation & autonomie', badge: 'pb-D', color: '#4f46e5' },
+    E: { name: 'Équipe', sub: 'Animation collective & cohésion', badge: 'pb-E', color: '#2ABFBF' },
+    F: { name: 'Fédération', sub: 'Sens, vision & engagement', badge: 'pb-F', color: '#b45309' },
+    I: { name: 'Individu', sub: 'Accompagnement singulier & reconnaissance', badge: 'pb-I', color: '#be185d' }
+  };
+
+  function renderResults() {
+    ['D','E','F','I'].forEach(function(dim) {
+      var s = scores[dim];
+      document.getElementById('score' + dim).textContent = s;
+      setTimeout(function(d, sc){ document.getElementById('bar'+d).style.width = Math.round((sc/25)*100) + '%'; }, 300, dim, s);
+    });
+
+    var analysisDims = '';
+    ['D','E','F','I'].forEach(function(dim) {
+      var s = scores[dim];
+      var lv = getLevel(s);
+      var d = dimDetails[dim];
+      analysisDims += '<div class="profil-dim-row">' +
+        '<div class="profil-badge ' + d.badge + '">' + dim + '</div>' +
+        '<div class="profil-dim-content">' +
+          '<h4>' + d.name + ' — ' + d.sub + '</h4>' +
+          '<span class="profil-level-tag ' + lv.cls + '">' + lv.label + ' (' + s + '/25)</span>' +
+          '<p>' + lv.txt + '</p>' +
+        '</div></div>';
+    });
+    document.getElementById('analysisDims').innerHTML = analysisDims;
+
+    var total = scores.D + scores.E + scores.F + scores.I;
+    var maxDim = ['D','E','F','I'].reduce(function(a,b){ return scores[a] > scores[b] ? a : b; });
+    var minDim = ['D','E','F','I'].reduce(function(a,b){ return scores[a] < scores[b] ? a : b; });
+    document.getElementById('globalProfil').innerHTML =
+      '<h4>Synthèse globale — Score total : ' + total + '/100</h4>' +
+      '<p>Votre point d\'appui principal est la dimension <strong>' + dimDetails[maxDim].name + '</strong> (' + scores[maxDim] + '/25), ce qui traduit un style managérial ancré dans ' + (maxDim==='D'?'la responsabilisation et la confiance accordée aux collaborateurs':(maxDim==='E'?'l\'animation collective et la cohésion d\'équipe':(maxDim==='F'?'la mobilisation autour du sens et de la vision commune':'l\'attention portée à chaque individu'))) + '. Votre axe prioritaire de développement est la dimension <strong>' + dimDetails[minDim].name + '</strong> (' + scores[minDim] + '/25). Ce diagnostic sera enrichi par la lecture croisée avec vos résultats Hersey &amp; Blanchard, afin de construire un plan de développement cohérent et ancré dans votre réalité de terrain.</p>';
+
+    drawRadar();
+    document.getElementById('emptyResults').style.display = 'none';
+    document.getElementById('resultsContent').style.display = 'block';
+  }
+
+  function drawRadar() {
+    var canvas = document.getElementById('radarChart');
+    var ctx = canvas.getContext('2d');
+    var cx = 190, cy = 160, r = 130;
+    var dims = ['D','E','F','I'];
+    var colors = ['#4f46e5','#2ABFBF','#b45309','#be185d'];
+    var labels = ['Délégation','Équipe','Fédération','Individu'];
+    ctx.clearRect(0,0,380,320);
+
+    for (var level = 1; level <= 5; level++) {
+      ctx.beginPath();
+      ctx.strokeStyle = 'rgba(0,0,0,0.1)';
+      ctx.lineWidth = 0.5;
+      for (var j = 0; j < 4; j++) {
+        var angle = (j * Math.PI/2) - Math.PI/2;
+        var lr = (level/5) * r;
+        var px = cx + lr * Math.cos(angle);
+        var py = cy + lr * Math.sin(angle);
+        if (j === 0) ctx.moveTo(px,py); else ctx.lineTo(px,py);
+      }
+      ctx.closePath();
+      ctx.stroke();
+    }
+
+    for (var j = 0; j < 4; j++) {
+      var angle = (j * Math.PI/2) - Math.PI/2;
+      ctx.beginPath();
+      ctx.strokeStyle = 'rgba(0,0,0,0.12)';
+      ctx.moveTo(cx,cy);
+      ctx.lineTo(cx + r * Math.cos(angle), cy + r * Math.sin(angle));
+      ctx.stroke();
+    }
+
+    ctx.beginPath();
+    ctx.fillStyle = 'rgba(29,48,88,0.12)';
+    ctx.strokeStyle = '#1D3058';
+    ctx.lineWidth = 2;
+    dims.forEach(function(d, j) {
+      var angle = (j * Math.PI/2) - Math.PI/2;
+      var ratio = scores[d] / 25;
+      var px = cx + ratio * r * Math.cos(angle);
+      var py = cy + ratio * r * Math.sin(angle);
+      if (j === 0) ctx.moveTo(px,py); else ctx.lineTo(px,py);
+    });
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+
+    dims.forEach(function(d, j) {
+      var angle = (j * Math.PI/2) - Math.PI/2;
+      var ratio = scores[d] / 25;
+      var px = cx + ratio * r * Math.cos(angle);
+      var py = cy + ratio * r * Math.sin(angle);
+      ctx.beginPath();
+      ctx.arc(px, py, 5, 0, 2*Math.PI);
+      ctx.fillStyle = colors[j];
+      ctx.fill();
+
+      var lx = cx + (r + 22) * Math.cos(angle);
+      var ly = cy + (r + 22) * Math.sin(angle);
+      ctx.font = 'bold 13px Montserrat, sans-serif';
+      ctx.fillStyle = colors[j];
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(d + ' ' + scores[d], lx, ly);
+      ctx.font = '10px Montserrat, sans-serif';
+      ctx.fillStyle = '#666';
+      ctx.fillText(labels[j], lx, ly + 14);
+    });
+  }
+
+  var planContent = {
+    D: {
+      title: 'Délégation',
+      fort: [
+        { t: 'Aller vers la délégation stratégique', p: 'Vous maîtrisez la délégation opérationnelle. Franchissez le pas vers la délégation de responsabilités stratégiques : impliquez vos collaborateurs experts dans des décisions de niveau supérieur.' },
+        { t: 'Devenez un formateur interne', p: 'Partagez votre culture de la délégation en accompagnant d\'autres encadrants moins à l\'aise. Animez un retour d\'expérience sur vos pratiques au sein de votre établissement.' }
+      ],
+      moyen: [
+        { t: 'Cartographier les compétences de l\'équipe', p: 'Formalisez une matrice de compétences pour identifier qui peut monter en responsabilité. Planifiez des délégations progressives avec un suivi structuré.' },
+        { t: 'Travailler la confiance en lâchant prise', p: 'Identifiez les tâches que vous conservez par réflexe de contrôle. Testez une délégation par mois sur une tâche que vous réalisez habituellement vous-même.' }
+      ],
+      faible: [
+        { t: 'Commencer par de petites délégations', p: 'Choisissez une tâche peu risquée et déléguez-la à un collaborateur de confiance avec un cadre clair. Analysez ensemble le résultat pour progresser.' },
+        { t: 'Se former à la délégation efficace', p: 'Participez à un module de formation sur la délégation managériale. Travaillez notamment les freins psychologiques (perfectionnisme, peur de perdre le contrôle).' }
+      ]
+    },
+    E: {
+      title: 'Équipe',
+      fort: [
+        { t: 'Développer l\'intelligence collective', p: 'Introduisez des formats participatifs innovants (design thinking, co-construction de protocoles) pour tirer encore davantage parti de l\'intelligence collective de votre équipe.' },
+        { t: 'Devenir ambassadeur de votre culture d\'équipe', p: 'Documentez et diffusez les pratiques coopératives de votre unité. Votre modèle peut inspirer d\'autres services de l\'établissement.' }
+      ],
+      moyen: [
+        { t: 'Structurer les temps collectifs', p: 'Évaluez la qualité de vos réunions d\'équipe et réorganisez-les pour favoriser réellement la prise de parole de tous. Testez le format "stand-up" hebdomadaire de 15 minutes.' },
+        { t: 'Travailler la gestion des conflits', p: 'Formez-vous à la médiation et à la régulation des conflits. Établissez une charte de fonctionnement co-construite avec l\'équipe.' }
+      ],
+      faible: [
+        { t: 'Créer un premier rituel collectif', p: 'Instaurez un temps collectif régulier et structuré (réunion mensuelle, briefing hebdomadaire). Donnez à chacun la parole selon un format simple et bienveillant.' },
+        { t: 'Diagnostiquer la cohésion de votre équipe', p: 'Réalisez un bilan de fonctionnement d\'équipe (questionnaire, entretiens) pour identifier les dysfonctionnements et prioriser les actions.' }
+      ]
+    },
+    F: {
+      title: 'Fédération',
+      fort: [
+        { t: 'Incarner la vision dans les actes quotidiens', p: 'Au-delà du discours, vérifiez que vos décisions du quotidien (plannings, priorités, arbitrages) sont cohérentes avec la vision que vous portez. La crédibilité se gagne dans le détail.' },
+        { t: 'Co-construire un projet de service', p: 'Engagez votre équipe dans l\'élaboration d\'un projet de service participatif. Votre capacité à fédérer en fera un outil vivant plutôt qu\'un document institutionnel.' }
+      ],
+      moyen: [
+        { t: 'Renforcer la communication du sens', p: 'Avant chaque changement ou nouveau projet, préparez un message clair sur le "pourquoi". Utilisez des supports simples (une page, un visuel) pour partager la vision avec l\'équipe.' },
+        { t: 'Relier les indicateurs au sens du soin', p: 'Traduisez régulièrement les données d\'activité, qualité et sécurité en messages porteurs de sens pour vos équipes soignantes. Le chiffre seul ne motive pas.' }
+      ],
+      faible: [
+        { t: 'Commencer par clarifier votre propre vision', p: 'Prenez le temps de formaliser (même brièvement) ce que vous souhaitez construire avec votre équipe dans les 12 à 18 prochains mois. C\'est le point de départ de toute fédération.' },
+        { t: 'Se former à la communication inspirante', p: 'Travaillez vos compétences de prise de parole et de storytelling managérial. La capacité à mobiliser se cultive et s\'apprend.' }
+      ]
+    },
+    I: {
+      title: 'Individu',
+      fort: [
+        { t: 'Formaliser les parcours de développement', p: 'Construisez avec chaque collaborateur un véritable plan de développement individuel articulé aux besoins du service et aux aspirations de la personne. Actualisez-le annuellement.' },
+        { t: 'Devenir un manager-coach', p: 'Explorez les techniques de coaching individuel (questionnement puissant, feedback constructif, posture de soutien). Proposez-vous pour accompagner de jeunes encadrants.' }
+      ],
+      moyen: [
+        { t: 'Systématiser les entretiens individuels', p: 'Planifiez au minimum un entretien formel par trimestre avec chaque collaborateur. Préparez-les avec une trame structurée incluant activité, ressenti, et projets.' },
+        { t: 'Diversifier les formes de reconnaissance', p: 'La reconnaissance ne se limite pas aux félicitations formelles. Explorez d\'autres formes : confier une mission valorisante, citer nommément dans un compte rendu, mentionner une réussite en réunion.' }
+      ],
+      faible: [
+        { t: 'Débuter par des entretiens informels réguliers', p: 'Prenez l\'habitude de consacrer 5 à 10 minutes par semaine à un échange individuel avec chaque collaborateur, en dehors des temps de travail formels.' },
+        { t: 'Apprendre à observer les signaux faibles', p: 'Formez-vous à la détection du mal-être au travail (burnout, désengagement). Développez votre écoute active et votre attention aux changements comportementaux discrets.' }
+      ]
+    }
+  };
+
+  function renderPlan() {
+    var html = '';
+    ['D','E','F','I'].forEach(function(dim) {
+      var s = scores[dim];
+      var lv = s >= 20 ? 'fort' : s >= 13 ? 'moyen' : 'faible';
+      var d = dimDetails[dim];
+      var pc = planContent[dim];
+      var actions = pc[lv];
+      html += '<div class="plan-dim-section">' +
+        '<div class="plan-dim-header">' +
+          '<div class="profil-badge ' + d.badge + '">' + dim + '</div>' +
+          '<div>' +
+            '<div class="plan-dim-title">' + d.name + ' — ' + d.sub + '</div>' +
+            '<div style="font-size:12px;color:var(--text-light);margin-top:2px;">Score : ' + s + '/25 — Niveau : ' + (lv==='fort'?'Fort':lv==='moyen'?'Modéré':'À développer') + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="plan-actions-grid">';
+      actions.forEach(function(a) {
+        html += '<div class="action-item">' +
+          '<h5><span class="action-dot ad-' + dim + '"></span>' + a.t + '</h5>' +
+          '<p>' + a.p + '</p>' +
+        '</div>';
+      });
+      html += '</div></div>';
+    });
+    document.getElementById('planDims').innerHTML = html;
+    document.getElementById('emptyPlan').style.display = 'none';
+    document.getElementById('planContent').style.display = 'block';
+  }
+
+  function saveJournal() {
+    var txt = document.getElementById('journalText').value;
+    localStorage.setItem('defi_journal', txt);
+    var msg = document.getElementById('saveMsg');
+    msg.style.display = 'inline';
+    setTimeout(function(){ msg.style.display = 'none'; }, 2500);
+  }
+
+  window.addEventListener('load', function() {
+    var saved = localStorage.getItem('defi_journal');
+    if (saved) document.getElementById('journalText').value = saved;
+  });
+</script>
+</body>
+</html>
